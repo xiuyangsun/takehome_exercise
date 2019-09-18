@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class Loading extends Component {
-  state={
+  state = {
     show: false,
-    dots: ''
-  }
+    dots: ""
+  };
 
   dotGenerator = () => {
     let time = 0;
@@ -13,16 +13,16 @@ class Loading extends Component {
       const dots = time % 3;
       switch (dots) {
         case 0:
-          this.setState({ dots: '...' });
+          this.setState({ dots: "..." });
           break;
         case 1:
-          this.setState({ dots: '.' });
+          this.setState({ dots: "." });
           break;
         case 2:
-          this.setState({ dots: '..' });
+          this.setState({ dots: ".." });
           break;
         default:
-          this.setState({ dots: '' });
+          this.setState({ dots: "" });
       }
     }, 500);
   };
