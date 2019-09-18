@@ -6,12 +6,20 @@ const limit = process.env.REACT_APP_LIMIT;
 
 export const fetchGif = () => async dispatch => {
   const URL = `http://api.giphy.com/v1/gifs/search?q=cat&api_key=${api_key}&limit=${limit}`;
-  const result = await axios.get(URL);
 
+  let result = {};
+  try {
+    result = await axios.get(URL);
+  } catch (err) {
+    console.log(`[Error Fetching GIFs from GIPHY API]: ${err}`);
+    return;
+  } 
+  
   if (result.error) {
-    throw new Error(`[Error Fetching GIFs from GIPHY API]: ${result.error}`);
+    console.log(`[Errors in GIFs]: ${result.error}`);
+    return;
   }
-
+  
   dispatch({ type: FETCH_GIF, payload: result.data.data });
 }
 
