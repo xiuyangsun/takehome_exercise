@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_GIF, NEXT_GIF, PREV_GIF } from '../actionTypes';
+import { FETCH_GIF, NEXT_GIF, PREV_GIF, SET_INDEX } from '../actionTypes';
 
 const api_key = process.env.REACT_APP_GIPHY_API_KEY;
 const limit = process.env.REACT_APP_LIMIT;
@@ -12,13 +12,17 @@ export const fetchGif = () => async dispatch => {
     throw new Error(`[Error Fetching GIFs from GIPHY API]: ${result.error}`);
   }
 
-  dispatch({ type: FETCH_GIF, payload: result.data.data});
+  dispatch({ type: FETCH_GIF, payload: result.data.data });
 }
 
 export const nextGif = () => dispatch => {
-  dispatch({ type: NEXT_GIF})
+  dispatch({ type: NEXT_GIF })
 }
 
 export const prevGif = () => dispatch => {
-  dispatch({ type: PREV_GIF})
+  dispatch({ type: PREV_GIF })
+}
+
+export const setIndex = (index) => dispatch => {
+  dispatch({ type: SET_INDEX, payload: index })
 }

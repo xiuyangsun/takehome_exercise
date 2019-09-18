@@ -1,36 +1,37 @@
 import React from "react";
-//import { makeStyles } from "@material-ui/core/styles";
-
-import { makeStyles } from '@material-ui/core/styles';
-import { red } from '@material-ui/core/colors';
+import { connect } from 'react-redux';
 import Button from "@material-ui/core/Button";
-import Icon from '@material-ui/core/Icon';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    '& > .fa': {
-      margin: theme.spacing(2),
-    },
-  },
-  iconHover: {
-    margin: theme.spacing(2),
-    '&:hover': {
-      color: red[800],
-    },
-  },
-}));
+import { nextGif, prevGif } from '../actions';
 
 const Switch = props => {
-  //const { direction, disabled } = props;
-  const classes = useStyles();
+  const { to, index, onClick, nextGif, prevGif } = props;
+  const content = to === 'prev' ? 'prev' : 'next';
+  const disabled = (to === 'prev' && index === 0) || (to === 'next' && index === process.env.REACT_APP_LIMIT - 1) ? true : false;
+  const handleClick = () => {
+    onClick();
+    to === 'prev' ? prevGif() : nextGif();
+  }
+
   return (
-    <div className={classes.root}>
-       <Button variant="outlined" color="primary">
-        <Icon className="fa fa-plus-circle" />
+    <div>
+      <Button
+        variant="outlined"
+        disabled={disabled}
+        color="primary"
+        onClick={handleClick}
+      >
+        {content}
       </Button>
-    </div>  
+    </div>
   )
-  
+
 };
 
-export default Switch;
+const mapStateToProps = ({ index }) => {
+  return { index };
+}
+
+export default connect(
+  mapStateToProps,
+  { nextGif, prevGif }
+)(Switch);
