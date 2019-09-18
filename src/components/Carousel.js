@@ -70,7 +70,8 @@ const styles = {
     maxHeight: "100%",
     maxWidth: "100%",
     width: "500px",
-    margin: "auto"
+    margin: "auto",
+    paddingBottom: "36px",
   }
 };
 
